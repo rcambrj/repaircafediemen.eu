@@ -12,6 +12,7 @@ $translations = [
         'heroTitleLine2' => 'No way!',
         'heroCopy' => 'Bring your broken devices to us for repair instead',
         'heroAlt' => 'People repairing household items together at Repair Café Diemen',
+        'metaImageAlt' => 'Repair Café Diemen logo',
         'whenHeading' => 'When',
         'whenTitle' => 'Second Saturday of each month',
         'hours' => '14:00–16:30',
@@ -54,6 +55,7 @@ $translations = [
         'heroTitleLine2' => 'Mooi niet!',
         'heroCopy' => 'Breng je kapotte apparaten liever bij ons langs voor reparatie',
         'heroAlt' => 'Mensen repareren samen spullen bij Repair Café Diemen',
+        'metaImageAlt' => 'Logo van Repair Café Diemen',
         'whenHeading' => 'Wanneer',
         'whenTitle' => 'Elke tweede zaterdag van de maand',
         'hours' => '14.00–16.30 uur',
@@ -91,6 +93,7 @@ $translations = [
 $requestedLanguage = $_GET['lang'] ?? null;
 $language = is_string($requestedLanguage) && isset($translations[$requestedLanguage]) ? $requestedLanguage : null;
 if ($language === null) {
+    header('Vary: Accept-Language', false);
     $highestQuality = 0.0;
     foreach (explode(',', (string) ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '')) as $preference) {
         if (!preg_match('/^\s*(en|nl)(?:-[a-z0-9]+)*(?:\s*;\s*q=(0(?:\.\d{1,3})?|1(?:\.0{1,3})?))?\s*$/i', $preference, $matches)) {
@@ -104,7 +107,9 @@ if ($language === null) {
     }
 }
 $language ??= 'en';
+header('Content-Language: ' . $language);
 $copy = $translations[$language];
+$canonicalUrl = 'https://repaircafediemen.eu/?lang=' . $language;
 
 function h(string $value): string
 {
@@ -119,6 +124,39 @@ function h(string $value): string
     <meta name="description" content="<?= h($copy['description']) ?>">
     <meta name="theme-color" content="#2d2e82">
     <title><?= h($copy['title']) ?></title>
+    <link rel="icon" type="image/png" sizes="144x144" href="/assets/favicon.png">
+    <link rel="canonical" href="<?= h($canonicalUrl) ?>">
+    <link rel="alternate" hreflang="en" href="https://repaircafediemen.eu/?lang=en">
+    <link rel="alternate" hreflang="nl" href="https://repaircafediemen.eu/?lang=nl">
+    <link rel="alternate" hreflang="x-default" href="https://repaircafediemen.eu/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Repair Café Diemen">
+    <meta property="og:locale" content="<?= $language === 'nl' ? 'nl_NL' : 'en_GB' ?>">
+    <meta property="og:locale:alternate" content="<?= $language === 'nl' ? 'en_GB' : 'nl_NL' ?>">
+    <meta property="og:url" content="<?= h($canonicalUrl) ?>">
+    <meta property="og:title" content="<?= h($copy['title']) ?>">
+    <meta property="og:description" content="<?= h($copy['description']) ?>">
+    <meta property="og:image" content="https://repaircafediemen.eu/assets/repair-cafe-diemen-logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+    <meta property="og:image:alt" content="<?= h($copy['metaImageAlt']) ?>">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Repair Café Diemen",
+        "url": "https://repaircafediemen.eu/",
+        "email": "repaircafediemen@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Arent Krijtsstraat 48",
+          "postalCode": "1111 AM",
+          "addressLocality": "Diemen",
+          "addressCountry": "NL"
+        }
+      }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <script>
       document.documentElement.dataset.theme = 'system';
