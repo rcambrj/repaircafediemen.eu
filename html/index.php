@@ -4,7 +4,7 @@ declare(strict_types=1);
 $translations = [
     'en' => [
         'title' => 'Repair Café Diemen — Toss it? No way!',
-        'description' => 'Repair Café Diemen meets on the second Saturday of each month from 14:00 to 16:30, except in July and August. Find us at Arent Krijtsstraat 48 in Diemen.',
+        'description' => 'Repair Café Diemen meets on the second Saturday of each month from 14:00 to 16:30 at Arent Krijtsstraat 48 in Diemen.',
         'backToTop' => 'Repair Café Diemen, back to top',
         'skipContent' => 'Skip to content',
         'languageLabel' => 'Language',
@@ -47,7 +47,7 @@ $translations = [
     ],
     'nl' => [
         'title' => 'Repair Café Diemen — Weggooien? Mooi niet!',
-        'description' => 'Repair Café Diemen is elke tweede zaterdag van de maand open van 14.00 tot 16.30 uur, behalve in juli en augustus. Je vindt ons aan de Arent Krijtsstraat 48 in Diemen.',
+        'description' => 'Repair Café Diemen is elke tweede zaterdag van de maand open van 14.00 tot 16.30 uur aan de Arent Krijtsstraat 48 in Diemen.',
         'backToTop' => 'Repair Café Diemen, terug naar boven',
         'skipContent' => 'Ga naar inhoud',
         'languageLabel' => 'Taal',
