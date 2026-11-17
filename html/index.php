@@ -1,27 +1,139 @@
+<?php
+declare(strict_types=1);
+
+$translations = [
+    'en' => [
+        'title' => 'Repair Café Diemen — Toss it? No way!',
+        'description' => 'Repair Café Diemen meets on the second Saturday of each month from 14:00 to 16:30, except in July and August. Find us at Arent Krijtsstraat 48 in Diemen.',
+        'backToTop' => 'Repair Café Diemen, back to top',
+        'languageLabel' => 'Language',
+        'heroTitle' => 'Toss it? No way!',
+        'heroLine1' => 'Something broken?',
+        'heroLine2' => 'Bring it to Repair Café Diemen.',
+        'heroLine3' => 'Our experts will take a look.',
+        'heroAlt' => 'People repairing household items together at Repair Café Diemen',
+        'whenHeading' => 'When',
+        'whenTitle' => 'Second Saturday of each month',
+        'hours' => '14:00–16:30',
+        'whenException' => 'Except in July and August.',
+        'whereHeading' => 'Where',
+        'whatHeading' => 'What',
+        'whatIntro' => 'What can you bring?',
+        'repairHeading' => 'We repair',
+        'repairs' => 'Electronics, other portable household appliances, and clothing.',
+        'notRepairHeading' => "We don't repair",
+        'notRepairs' => 'Screens and large appliances.',
+        'cleaningNote' => 'Please clean any vacuum cleaners or personal hygiene devices before bringing them to us.',
+        'contactHeading' => 'Say hello',
+        'contactTitle' => 'Got a question?',
+        'copyAddress' => 'Copy address',
+        'addressCopied' => 'Copied!',
+        'copyFailed' => 'Could not copy. Select the address instead.',
+        'mapNavigation' => 'Map apps',
+        'mapButton' => 'Open in Google Maps',
+        'openStreetMapButton' => 'Open in OpenStreetMap',
+        'appleMapsButton' => 'Open in Apple Maps',
+        'wazeButton' => 'Open in Waze',
+        'mapFrameTitle' => 'Map centered on Repair Café Diemen at Arent Krijtsstraat 48',
+        'mapZoom' => 'Map zoom',
+        'zoomIn' => 'Zoom in',
+        'zoomOut' => 'Zoom out',
+        'footerNavigation' => 'Other Repair Café resources',
+        'amsterdamLink' => 'Repair Cafés in Amsterdam',
+        'worldLink' => 'Repair Cafés around the World',
+        'themeMode' => 'Theme',
+        'selectTheme' => 'Select',
+        'systemMode' => 'System',
+        'darkMode' => 'Dark',
+        'lightMode' => 'Light',
+    ],
+    'nl' => [
+        'title' => 'Repair Café Diemen — Weggooien? Mooi niet!',
+        'description' => 'Repair Café Diemen is elke tweede zaterdag van de maand open van 14.00 tot 16.30 uur, behalve in juli en augustus. Je vindt ons aan de Arent Krijtsstraat 48 in Diemen.',
+        'backToTop' => 'Repair Café Diemen, terug naar boven',
+        'languageLabel' => 'Taal',
+        'heroTitle' => 'Weggooien? Mooi niet!',
+        'heroLine1' => 'Iets kapot?',
+        'heroLine2' => 'Neem het mee naar Repair Café Diemen.',
+        'heroLine3' => 'Onze experts kijken ernaar.',
+        'heroAlt' => 'Mensen repareren samen spullen bij Repair Café Diemen',
+        'whenHeading' => 'Wanneer',
+        'whenTitle' => 'Elke tweede zaterdag van de maand',
+        'hours' => '14.00–16.30 uur',
+        'whenException' => 'Behalve in juli en augustus.',
+        'whereHeading' => 'Waar',
+        'whatHeading' => 'Wat',
+        'whatIntro' => 'Wat kun je meenemen?',
+        'repairHeading' => 'Dit repareren we',
+        'repairs' => 'Elektronica, andere draagbare huishoudelijke apparaten en kleding.',
+        'notRepairHeading' => 'Dit repareren we niet',
+        'notRepairs' => 'Beeldschermen en grote apparaten.',
+        'cleaningNote' => 'Maak stofzuigers en apparaten voor persoonlijke verzorging schoon voordat je ze bij ons brengt.',
+        'contactHeading' => 'Zeg hallo',
+        'contactTitle' => 'Een vraag?',
+        'copyAddress' => 'Adres kopiëren',
+        'addressCopied' => 'Gekopieerd!',
+        'copyFailed' => 'Kopiëren mislukt. Selecteer het adres om het te kopiëren.',
+        'mapNavigation' => 'Kaartapps',
+        'mapButton' => 'Open in Google Maps',
+        'openStreetMapButton' => 'Open in OpenStreetMap',
+        'appleMapsButton' => 'Open in Apple Kaarten',
+        'wazeButton' => 'Open in Waze',
+        'mapFrameTitle' => 'Kaart gecentreerd op Repair Café Diemen aan de Arent Krijtsstraat 48',
+        'mapZoom' => 'Kaart in- en uitzoomen',
+        'zoomIn' => 'Inzoomen',
+        'zoomOut' => 'Uitzoomen',
+        'footerNavigation' => 'Andere Repair Café-websites',
+        'amsterdamLink' => 'Repair Cafés in Amsterdam',
+        'worldLink' => 'Repair Cafés wereldwijd',
+        'themeMode' => 'Thema',
+        'selectTheme' => 'Kies',
+        'systemMode' => 'Systeem',
+        'darkMode' => 'Donker',
+        'lightMode' => 'Licht',
+    ],
+];
+
+$requestedLanguage = $_GET['lang'] ?? null;
+$language = is_string($requestedLanguage) && isset($translations[$requestedLanguage]) ? $requestedLanguage : null;
+if ($language === null) {
+    $highestQuality = 0.0;
+    foreach (explode(',', (string) ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '')) as $preference) {
+        if (!preg_match('/^\s*(en|nl)(?:-[a-z0-9]+)*(?:\s*;\s*q=(0(?:\.\d{1,3})?|1(?:\.0{1,3})?))?\s*$/i', $preference, $matches)) {
+            continue;
+        }
+        $quality = isset($matches[2]) ? (float) $matches[2] : 1.0;
+        if ($quality > $highestQuality) {
+            $highestQuality = $quality;
+            $language = strtolower($matches[1]);
+        }
+    }
+}
+$language ??= 'en';
+$copy = $translations[$language];
+
+function h(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+?>
 <!doctype html>
-<html lang="en">
+<html lang="<?= h($language) ?>">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Repair Café Diemen meets on the second Saturday of each month from 14:00 to 16:30, except in July and August. Find us at Arent Krijtsstraat 48 in Diemen.">
+    <meta name="description" content="<?= h($copy['description']) ?>">
     <meta name="theme-color" content="#2d2e82">
-    <title>Repair Café Diemen — Toss it? No way!</title>
+    <title><?= h($copy['title']) ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <script>
-      const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language || 'en'];
-      const preferredLanguage = browserLanguages.map(language => language.toLowerCase().split('-')[0])
-        .find(language => language === 'nl' || language === 'en') || 'en';
-      let language = preferredLanguage;
       document.documentElement.dataset.theme = 'system';
       try {
         const savedTheme = localStorage.getItem('repair-cafe-theme');
         if (savedTheme === 'system' || savedTheme === 'light' || savedTheme === 'dark') {
           document.documentElement.dataset.theme = savedTheme;
         }
-        const savedLanguage = localStorage.getItem('repair-cafe-language');
-        if (savedLanguage === 'en' || savedLanguage === 'nl') language = savedLanguage;
       } catch (_) { /* Use the system theme when storage is unavailable. */ }
-      document.documentElement.lang = language;
     </script>
     <style>
       :root {
@@ -89,11 +201,12 @@
       .brand-mark img { width: 151px; height: auto; }
       .brand-place { font-size: .77rem; letter-spacing: .17em; font-weight: 800; text-transform: uppercase; color: #fff; }
       .header-actions { display: flex; align-items: center; gap: clamp(12px, 3vw, 34px); }
-      .language-select { padding: 8px 10px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 999px; background: #2d2e82; color: #fff; font: inherit; font-size: .84rem; cursor: pointer; }
-      .language-select option { color: #202b28; background: #fff; }
+      .language-switch { display: flex; overflow: hidden; border: 1px solid rgba(255, 255, 255, .5); border-radius: 999px; }
+      .language-switch a { padding: 7px 10px; color: #fff; font-size: .84rem; font-weight: 650; text-decoration: none; }
+      .language-switch a[aria-current="page"], .language-switch a:hover { background: rgba(255, 255, 255, .2); }
       .theme-toggle { display: inline-grid; place-items: center; width: 39px; height: 39px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 50%; background: transparent; color: #fff; font-size: 1.25rem; line-height: 1; }
       .theme-toggle .fa-sun { transform: translateY(-1px); }
-      .theme-toggle:hover, .language-select:hover { background: rgba(255, 255, 255, .15); }
+      .theme-toggle:hover { background: rgba(255, 255, 255, .15); }
       .hero { position: relative; display: flex; align-items: center; min-height: 540px; margin-top: 28px; border-radius: 18px; overflow: hidden; background: var(--hero); }
       .hero::before { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, rgba(10, 20, 18, .88), rgba(10, 20, 18, .62) 48%, rgba(10, 20, 18, .2)); }
       .hero-content { position: relative; z-index: 2; width: min(100%, 650px); padding: clamp(36px, min(5.5vw, 66px), 78px); color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, .8); }
@@ -150,7 +263,7 @@
         .brand-mark img { width: 100px; }
         .brand-place { display: none; }
         .header-actions { gap: 8px; }
-        .language-select { font-size: .75rem; padding: 7px 5px; }
+        .language-switch a { font-size: .75rem; padding: 7px 8px; }
         .theme-toggle { width: 36px; height: 36px; }
         .hero { min-height: 510px; margin-top: 14px; align-items: flex-start; }
         .hero::before { background: linear-gradient(180deg, rgba(10, 20, 18, .88), rgba(10, 20, 18, .7) 58%, rgba(10, 20, 18, .3)); }
@@ -166,16 +279,16 @@
   <body id="top">
     <header class="site-header">
       <div class="wrap header-inner">
-        <a class="brand" href="#top" aria-label="Repair Café Diemen, back to top" data-i18n-aria-label="backToTop">
+        <a class="brand" href="#top" aria-label="<?= h($copy['backToTop']) ?>">
           <span class="brand-mark"><img src="assets/repair-cafe-logo.png" width="151" height="19" alt="Repair Café"></span>
           <span class="brand-place">Diemen</span>
         </a>
         <div class="header-actions">
-          <select class="language-select" id="language-select" aria-label="Language" data-i18n-aria-label="languageLabel">
-            <option value="en" lang="en">EN</option>
-            <option value="nl" lang="nl">NL</option>
-          </select>
-          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme: System. Select dark." title="Theme: System. Select dark."><i class="theme-icon fa-solid fa-gear" aria-hidden="true"></i></button>
+          <nav class="language-switch" aria-label="<?= h($copy['languageLabel']) ?>">
+            <a href="?lang=en" lang="en"<?= $language === 'en' ? ' aria-current="page"' : '' ?>>EN</a>
+            <a href="?lang=nl" lang="nl"<?= $language === 'nl' ? ' aria-current="page"' : '' ?>>NL</a>
+          </nav>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="<?= h($copy['themeMode'] . ': ' . $copy['systemMode']) ?>" data-theme-mode="<?= h($copy['themeMode']) ?>" data-select-theme="<?= h($copy['selectTheme']) ?>" data-system-mode="<?= h($copy['systemMode']) ?>" data-dark-mode="<?= h($copy['darkMode']) ?>" data-light-mode="<?= h($copy['lightMode']) ?>"><i class="theme-icon fa-solid fa-gear" aria-hidden="true"></i></button>
         </div>
       </div>
     </header>
@@ -184,45 +297,45 @@
       <section class="wrap hero" aria-labelledby="hero-title">
         <div class="hero-content">
           <p class="eyebrow">Repair Café Diemen</p>
-          <h1 id="hero-title" data-i18n="heroTitle">Toss it? No way!</h1>
-          <p class="hero-copy"><span data-i18n="heroLine1">Something broken?</span><span data-i18n="heroLine2">Bring it to Repair Café Diemen.</span><span data-i18n="heroLine3">Our experts will take a look.</span></p>
+          <h1 id="hero-title"><?= h($copy['heroTitle']) ?></h1>
+          <p class="hero-copy"><span><?= h($copy['heroLine1']) ?></span><span><?= h($copy['heroLine2']) ?></span><span><?= h($copy['heroLine3']) ?></span></p>
         </div>
-        <img class="hero-image" id="hero-image" src="assets/hero-0.jpg" width="1272" height="847" alt="People repairing household items together at Repair Café Diemen" data-i18n-alt="heroAlt" fetchpriority="high">
+        <img class="hero-image" id="hero-image" src="assets/hero-0.jpg" width="1272" height="847" alt="<?= h($copy['heroAlt']) ?>" fetchpriority="high">
       </section>
 
       <section class="wrap info-section when-section" id="when" aria-labelledby="when-heading">
         <div class="section-intro">
-          <h2 id="when-heading" data-i18n="whenHeading">When</h2>
+          <h2 id="when-heading"><?= h($copy['whenHeading']) ?></h2>
         </div>
         <div class="when-time">
-          <p class="when-day" data-i18n="whenTitle">Second Saturday of each month</p>
-          <strong data-i18n="hours">14:00–16:30</strong>
-          <p data-i18n="whenException">Except in July and August.</p>
+          <p class="when-day"><?= h($copy['whenTitle']) ?></p>
+          <strong><?= h($copy['hours']) ?></strong>
+          <p><?= h($copy['whenException']) ?></p>
         </div>
       </section>
 
       <section class="wrap info-section where-section" id="where" aria-labelledby="where-heading">
         <div class="where-layout">
           <div>
-            <h2 id="where-heading" data-i18n="whereHeading">Where</h2>
+            <h2 id="where-heading"><?= h($copy['whereHeading']) ?></h2>
             <p class="address">Arent Krijtsstraat 48<br>1111 AM Diemen
-              <button class="copy-button" id="copy-address" type="button" aria-label="Copy address" data-i18n-aria-label="copyAddress" title="Copy address" data-i18n-title="copyAddress">
+              <button class="copy-button" id="copy-address" type="button" aria-label="<?= h($copy['copyAddress']) ?>" title="<?= h($copy['copyAddress']) ?>" data-copied="<?= h($copy['addressCopied']) ?>" data-copy-failed="<?= h($copy['copyFailed']) ?>">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
               </button>
               <span class="copy-status" id="copy-status" role="status"></span>
             </p>
-            <nav class="map-links" aria-label="Other map apps" data-i18n-aria-label="mapNavigation">
-              <a class="text-link" href="https://maps.app.goo.gl/SLUp1XJdvAuQ12ey7"><span data-i18n="mapButton">Open in Google Maps</span> <span aria-hidden="true">↗</span></a>
-              <a class="text-link" href="https://www.openstreetmap.org/search?query=Arent%20Krijtsstraat%2048%2C%201111%20AM%20Diemen"><span data-i18n="openStreetMapButton">Open in OpenStreetMap</span> <span aria-hidden="true">↗</span></a>
-              <a class="text-link" href="https://maps.apple.com/?q=Arent%20Krijtsstraat%2048%2C%201111%20AM%20Diemen"><span data-i18n="appleMapsButton">Open in Apple Maps</span> <span aria-hidden="true">↗</span></a>
-              <a class="text-link" href="https://waze.com/ul?q=Arent%20Krijtsstraat%2048%2C%201111%20AM%20Diemen"><span data-i18n="wazeButton">Open in Waze</span> <span aria-hidden="true">↗</span></a>
+            <nav class="map-links" aria-label="<?= h($copy['mapNavigation']) ?>">
+              <a class="text-link" href="https://maps.app.goo.gl/SLUp1XJdvAuQ12ey7"><span><?= h($copy['mapButton']) ?></span> <span aria-hidden="true">↗</span></a>
+              <a class="text-link" href="https://www.openstreetmap.org/search?query=Arent%20Krijtsstraat%2048%2C%201111%20AM%20Diemen"><span><?= h($copy['openStreetMapButton']) ?></span> <span aria-hidden="true">↗</span></a>
+              <a class="text-link" href="https://maps.apple.com/?q=Arent%20Krijtsstraat%2048%2C%201111%20AM%20Diemen"><span><?= h($copy['appleMapsButton']) ?></span> <span aria-hidden="true">↗</span></a>
+              <a class="text-link" href="https://waze.com/ul?q=Arent%20Krijtsstraat%2048%2C%201111%20AM%20Diemen"><span><?= h($copy['wazeButton']) ?></span> <span aria-hidden="true">↗</span></a>
             </nav>
           </div>
           <div class="map-panel">
-            <iframe class="map-frame" id="map-frame" src="https://www.google.com/maps?ll=52.3415781,4.9566408&amp;z=17&amp;output=embed" width="600" height="390" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Map centered on Repair Café Diemen at Arent Krijtsstraat 48" data-i18n-title="mapFrameTitle" allowfullscreen></iframe>
-            <div class="map-zoom" role="group" aria-label="Map zoom" data-i18n-aria-label="mapZoom">
-              <button id="zoom-in" type="button" aria-label="Zoom in" data-i18n-aria-label="zoomIn" title="Zoom in" data-i18n-title="zoomIn">+</button>
-              <button id="zoom-out" type="button" aria-label="Zoom out" data-i18n-aria-label="zoomOut" title="Zoom out" data-i18n-title="zoomOut">−</button>
+            <iframe class="map-frame" id="map-frame" src="https://www.google.com/maps?ll=52.3415781,4.9566408&amp;z=17&amp;output=embed" width="600" height="390" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="<?= h($copy['mapFrameTitle']) ?>" allowfullscreen></iframe>
+            <div class="map-zoom" role="group" aria-label="<?= h($copy['mapZoom']) ?>">
+              <button id="zoom-in" type="button" aria-label="<?= h($copy['zoomIn']) ?>" title="<?= h($copy['zoomIn']) ?>">+</button>
+              <button id="zoom-out" type="button" aria-label="<?= h($copy['zoomOut']) ?>" title="<?= h($copy['zoomOut']) ?>">−</button>
             </div>
           </div>
         </div>
@@ -230,26 +343,26 @@
 
       <section class="wrap info-section what-section" id="what" aria-labelledby="what-heading">
         <div class="section-intro">
-          <h2 id="what-heading" data-i18n="whatHeading">What</h2>
-          <p data-i18n="whatIntro">What can you bring?</p>
+          <h2 id="what-heading"><?= h($copy['whatHeading']) ?></h2>
+          <p><?= h($copy['whatIntro']) ?></p>
         </div>
         <div class="repair-details">
           <div>
-            <h3 data-i18n="repairHeading">We repair</h3>
-            <p data-i18n="repairs">Electronics, other portable household appliances, and clothing.</p>
+            <h3><?= h($copy['repairHeading']) ?></h3>
+            <p><?= h($copy['repairs']) ?></p>
           </div>
           <div class="not-repaired">
-            <h3 data-i18n="notRepairHeading">We don't repair</h3>
-            <p data-i18n="notRepairs">Screens and large appliances.</p>
+            <h3><?= h($copy['notRepairHeading']) ?></h3>
+            <p><?= h($copy['notRepairs']) ?></p>
           </div>
-          <p class="repair-note" data-i18n="cleaningNote">Please clean any vacuum cleaners or personal hygiene devices before bringing them to us.</p>
+          <p class="repair-note"><?= h($copy['cleaningNote']) ?></p>
         </div>
       </section>
 
       <section class="wrap info-section contact-section" id="contact" aria-labelledby="contact-heading">
         <div class="section-intro">
-          <h2 id="contact-heading" data-i18n="contactHeading">Say hello</h2>
-          <p data-i18n="contactTitle">Got a question?</p>
+          <h2 id="contact-heading"><?= h($copy['contactHeading']) ?></h2>
+          <p><?= h($copy['contactTitle']) ?></p>
         </div>
         <a class="contact-email" href="mailto:repaircafediemen@gmail.com">repaircafediemen@gmail.com</a>
       </section>
@@ -257,148 +370,27 @@
 
     <footer class="site-footer">
       <div class="wrap footer-inner">
-        <nav class="footer-links" aria-label="Other Repair Café resources" data-i18n-aria-label="footerNavigation">
-          <a href="https://repaircafe.amsterdam/en/cafe/de-diem" data-i18n="amsterdamLink">Repair Cafés in Amsterdam</a>
-          <a href="https://www.repaircafe.org/cafe/repair-cafe-diemen/" data-i18n="worldLink">Repair Cafés around the World</a>
+        <nav class="footer-links" aria-label="<?= h($copy['footerNavigation']) ?>">
+          <a href="https://repaircafe.amsterdam/en/cafe/de-diem"><?= h($copy['amsterdamLink']) ?></a>
+          <a href="https://www.repaircafe.org/cafe/repair-cafe-diemen/"><?= h($copy['worldLink']) ?></a>
         </nav>
       </div>
     </footer>
 
     <script>
-      const translations = {
-        en: {
-          title: 'Repair Café Diemen — Toss it? No way!',
-          description: 'Repair Café Diemen meets on the second Saturday of each month from 14:00 to 16:30, except in July and August. Find us at Arent Krijtsstraat 48 in Diemen.',
-          backToTop: 'Repair Café Diemen, back to top',
-          languageLabel: 'Language',
-          heroTitle: 'Toss it? No way!',
-          heroLine1: 'Something broken?',
-          heroLine2: 'Bring it to Repair Café Diemen.',
-          heroLine3: 'Our experts will take a look.',
-          heroAlt: 'People repairing household items together at Repair Café Diemen',
-          whenHeading: 'When',
-          whenTitle: 'Second Saturday of each month',
-          hours: '14:00–16:30',
-          whenException: 'Except in July and August.',
-          whereHeading: 'Where',
-          whatHeading: 'What',
-          whatIntro: 'What can you bring?',
-          repairHeading: 'We repair',
-          repairs: 'Electronics, other portable household appliances, and clothing.',
-          notRepairHeading: "We don't repair",
-          notRepairs: 'Screens and large appliances.',
-          cleaningNote: 'Please clean any vacuum cleaners or personal hygiene devices before bringing them to us.',
-          contactHeading: 'Say hello',
-          contactTitle: 'Got a question?',
-          copyAddress: 'Copy address',
-          addressCopied: 'Copied!',
-          copyFailed: 'Could not copy. Select the address instead.',
-          mapNavigation: 'Map apps',
-          mapButton: 'Open in Google Maps',
-          openStreetMapButton: 'Open in OpenStreetMap',
-          appleMapsButton: 'Open in Apple Maps',
-          wazeButton: 'Open in Waze',
-          mapFrameTitle: 'Map centered on Repair Café Diemen at Arent Krijtsstraat 48',
-          mapZoom: 'Map zoom',
-          zoomIn: 'Zoom in',
-          zoomOut: 'Zoom out',
-          footerNavigation: 'Other Repair Café resources',
-          amsterdamLink: 'Repair Cafés in Amsterdam',
-          worldLink: 'Repair Cafés around the World',
-          themeMode: 'Theme',
-          selectTheme: 'Select',
-          systemMode: 'System',
-          darkMode: 'Dark',
-          lightMode: 'Light'
-        },
-        nl: {
-          title: 'Repair Café Diemen — Weggooien? Mooi niet!',
-          description: 'Repair Café Diemen is elke tweede zaterdag van de maand open van 14.00 tot 16.30 uur, behalve in juli en augustus. Je vindt ons aan de Arent Krijtsstraat 48 in Diemen.',
-          backToTop: 'Repair Café Diemen, terug naar boven',
-          languageLabel: 'Taal',
-          heroTitle: 'Weggooien? Mooi niet!',
-          heroLine1: 'Iets kapot?',
-          heroLine2: 'Neem het mee naar Repair Café Diemen.',
-          heroLine3: 'Onze experts kijken ernaar.',
-          heroAlt: 'Mensen repareren samen spullen bij Repair Café Diemen',
-          whenHeading: 'Wanneer',
-          whenTitle: 'Elke tweede zaterdag van de maand',
-          hours: '14.00–16.30 uur',
-          whenException: 'Behalve in juli en augustus.',
-          whereHeading: 'Waar',
-          whatHeading: 'Wat',
-          whatIntro: 'Wat kun je meenemen?',
-          repairHeading: 'Dit repareren we',
-          repairs: 'Elektronica, andere draagbare huishoudelijke apparaten en kleding.',
-          notRepairHeading: 'Dit repareren we niet',
-          notRepairs: 'Beeldschermen en grote apparaten.',
-          cleaningNote: 'Maak stofzuigers en apparaten voor persoonlijke verzorging schoon voordat je ze bij ons brengt.',
-          contactHeading: 'Zeg hallo',
-          contactTitle: 'Een vraag?',
-          copyAddress: 'Adres kopiëren',
-          addressCopied: 'Gekopieerd!',
-          copyFailed: 'Kopiëren mislukt. Selecteer het adres om het te kopiëren.',
-          mapNavigation: 'Kaartapps',
-          mapButton: 'Open in Google Maps',
-          openStreetMapButton: 'Open in OpenStreetMap',
-          appleMapsButton: 'Open in Apple Kaarten',
-          wazeButton: 'Open in Waze',
-          mapFrameTitle: 'Kaart gecentreerd op Repair Café Diemen aan de Arent Krijtsstraat 48',
-          mapZoom: 'Kaart in- en uitzoomen',
-          zoomIn: 'Inzoomen',
-          zoomOut: 'Uitzoomen',
-          footerNavigation: 'Andere Repair Café-websites',
-          amsterdamLink: 'Repair Cafés in Amsterdam',
-          worldLink: 'Repair Cafés wereldwijd',
-          themeMode: 'Thema',
-          selectTheme: 'Kies',
-          systemMode: 'Systeem',
-          darkMode: 'Donker',
-          lightMode: 'Licht'
-        }
-      };
-
-      const languageSelect = document.getElementById('language-select');
       const toggle = document.getElementById('theme-toggle');
       const copyButton = document.getElementById('copy-address');
       const copyStatus = document.getElementById('copy-status');
       let copyStatusTimer;
-      function setLanguage(language) {
-        const copy = translations[language];
-        document.documentElement.lang = language;
-        languageSelect.value = language;
-        document.title = copy.title;
-        document.querySelector('meta[name="description"]').content = copy.description;
-        document.querySelectorAll('[data-i18n]').forEach(element => {
-          element.textContent = copy[element.dataset.i18n];
-        });
-        document.querySelectorAll('[data-i18n-aria-label]').forEach(element => {
-          element.setAttribute('aria-label', copy[element.dataset.i18nAriaLabel]);
-        });
-        document.querySelectorAll('[data-i18n-alt]').forEach(element => {
-          element.alt = copy[element.dataset.i18nAlt];
-        });
-        document.querySelectorAll('[data-i18n-title]').forEach(element => {
-          element.title = copy[element.dataset.i18nTitle];
-        });
-        clearTimeout(copyStatusTimer);
-        copyStatus.textContent = '';
-        updateToggle();
-      }
-      languageSelect.addEventListener('change', () => {
-        setLanguage(languageSelect.value);
-        try { localStorage.setItem('repair-cafe-language', languageSelect.value); } catch (_) { /* Keep the choice for this visit. */ }
-      });
       copyButton.addEventListener('click', async () => {
-        const copy = translations[document.documentElement.lang];
         clearTimeout(copyStatusTimer);
         copyStatus.textContent = '';
         try {
           await navigator.clipboard.writeText('Arent Krijtsstraat 48, 1111 AM Diemen');
-          copyStatus.textContent = copy.addressCopied;
+          copyStatus.textContent = copyButton.dataset.copied;
           copyStatusTimer = setTimeout(() => { copyStatus.textContent = ''; }, 3000);
         } catch (_) {
-          copyStatus.textContent = copy.copyFailed;
+          copyStatus.textContent = copyButton.dataset.copyFailed;
         }
       });
 
@@ -428,12 +420,11 @@
       function updateToggle() {
         const mode = document.documentElement.dataset.theme;
         const next = { system: 'dark', dark: 'light', light: 'system' }[mode];
-        const copy = translations[document.documentElement.lang];
-        const modeLabels = { system: copy.systemMode, dark: copy.darkMode, light: copy.lightMode };
+        const modeLabels = { system: toggle.dataset.systemMode, dark: toggle.dataset.darkMode, light: toggle.dataset.lightMode };
         const icon = toggle.querySelector('.theme-icon');
         icon.classList.remove('fa-gear', 'fa-moon', 'fa-sun');
         icon.classList.add({ system: 'fa-gear', dark: 'fa-moon', light: 'fa-sun' }[mode]);
-        const label = `${copy.themeMode}: ${modeLabels[mode]}. ${copy.selectTheme}: ${modeLabels[next]}.`;
+        const label = `${toggle.dataset.themeMode}: ${modeLabels[mode]}. ${toggle.dataset.selectTheme}: ${modeLabels[next]}.`;
         toggle.setAttribute('aria-label', label);
         toggle.title = label;
       }
@@ -443,7 +434,7 @@
         try { localStorage.setItem('repair-cafe-theme', next); } catch (_) { /* Theme still works for this visit. */ }
         updateToggle();
       });
-      setLanguage(document.documentElement.lang);
+      updateToggle();
     </script>
   </body>
 </html>
