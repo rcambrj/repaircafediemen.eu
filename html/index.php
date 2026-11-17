@@ -134,11 +134,10 @@ function h(string $value): string
         color-scheme: light;
         --page: #f6f4ee;
         --surface: #fffefa;
-        --soft: #eeeae0;
-        --ink: #202b28;
+        --ink: #4b5751;
         --muted: #59645e;
         --line: #dcded5;
-        --accent: #ad3b22;
+        --accent: #c05635;
         --hero: #e8e9da;
       }
 
@@ -147,11 +146,10 @@ function h(string $value): string
           color-scheme: dark;
           --page: #171d1a;
           --surface: #222a25;
-          --soft: #303a32;
           --ink: #f4f3eb;
           --muted: #bac4b9;
           --line: #3b473d;
-          --accent: #f38a69;
+          --accent: #ed6a42;
           --hero: #2b392f;
         }
       }
@@ -160,11 +158,10 @@ function h(string $value): string
         color-scheme: dark;
         --page: #171d1a;
         --surface: #222a25;
-        --soft: #303a32;
         --ink: #f4f3eb;
         --muted: #bac4b9;
         --line: #3b473d;
-        --accent: #f38a69;
+        --accent: #ed6a42;
         --hero: #2b392f;
       }
 
@@ -203,30 +200,26 @@ function h(string $value): string
       .hero { position: relative; display: flex; align-items: center; min-height: 540px; margin-top: 20px; border-radius: 18px; overflow: hidden; background: var(--hero); }
       .hero::before { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, rgba(10, 20, 18, .88), rgba(10, 20, 18, .62) 48%, rgba(10, 20, 18, .2)); }
       .hero-content { position: relative; z-index: 2; width: 100%; padding-block: 48px; padding-inline: clamp(36px, min(5.5vw, 66px), 78px); color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, .8); }
-      .hero .eyebrow { color: #ffb39d; }
-      .eyebrow { margin: 0 0 20px; color: var(--accent); font-size: .875rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
       h1, h2, h3, p { margin-top: 0; }
       h1, h2 { font-family: Georgia, "Times New Roman", serif; letter-spacing: -.045em; line-height: 1.06; }
-      h1 { font-size: clamp(3rem, min(5.4vw, 64.8px), 5rem); margin-bottom: 24px; }
+      h1 { font-size: clamp(3rem, min(7vw, 84px), 5.5rem); margin-bottom: 24px; }
       .hero h1 span { display: block; }
-      .hero-copy { font-size: 1.12rem; color: #fff; margin-bottom: 0; }
+      .hero-copy { font-size: 1.35rem; color: #fff; margin-bottom: 0; }
       .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
       h2 { font-size: clamp(3.5rem, min(6.5vw, 78px), 6rem); margin-bottom: 12px; }
-      .info-section { margin-top: 20px; padding-block: 40px; padding-inline: clamp(30px, min(5vw, 60px), 70px); border-radius: 16px; }
-      .when-section, .what-section, .contact-section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; gap: 36px; min-height: 320px; background: var(--surface); border: 1px solid var(--line); }
+      .info-section { margin-top: 20px; padding-block: 40px; padding-inline: clamp(30px, min(5vw, 60px), 70px); border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+      .when-section, .what-section, .contact-section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; gap: 36px; min-height: 320px; }
       .when-time { justify-self: start; }
       .when-time .when-day { margin: 0 0 16px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, min(3.3vw, 39.6px), 3.2rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.2; }
       .when-time strong { display: block; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.9rem, min(2.7vw, 32.4px), 2.8rem); letter-spacing: -.05em; line-height: 1.1; color: var(--accent); }
       .when-time p:last-child { margin: 14px 0 0; color: var(--muted); }
-      .where-section { background: var(--soft); }
       .where-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 36px; align-items: center; }
       .address { margin: 20px 0; font-size: 1.5rem; font-weight: 650; }
       .copy-button { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin-left: 4px; padding: 4px; vertical-align: middle; border: 0; border-radius: 6px; background: transparent; color: var(--accent); }
-      .copy-button:hover { background: var(--surface); }
       .copy-status { margin-left: 6px; color: var(--accent); font-size: .9rem; font-weight: 650; }
       .map-links { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
       .text-link { display: inline-flex; align-items: center; gap: 9px; color: var(--accent); font-weight: 750; text-decoration-thickness: 1px; }
-      .map-panel { --map-height: clamp(300px, 34vw, 390px); position: relative; min-width: 0; height: var(--map-height); overflow: hidden; border-radius: 10px; }
+      .map-panel { --map-height: clamp(300px, 34vw, 390px); min-width: 0; height: var(--map-height); overflow: hidden; border-radius: 10px; }
       .map-frame { display: block; width: 100%; height: var(--map-height); border: 0; background: var(--surface); }
       .repair-details h3 { margin: 0 0 10px; color: var(--accent); font-size: .875rem; letter-spacing: .14em; text-transform: uppercase; }
       .repair-details p { margin: 0; font-size: clamp(1.25rem, min(2.2vw, 26.4px), 1.75rem); font-weight: 650; line-height: 1.35; }
@@ -283,15 +276,14 @@ function h(string $value): string
     <main id="main" tabindex="-1">
       <section class="wrap hero" aria-labelledby="hero-title">
         <div class="hero-content">
-          <p class="eyebrow">Repair Café Diemen</p>
           <h1 id="hero-title"><span><?= h($copy['heroTitleLine1']) ?></span> <span><?= h($copy['heroTitleLine2']) ?></span></h1>
           <p class="hero-copy"><?= h($copy['heroCopy']) ?></p>
         </div>
-        <img class="hero-image" id="hero-image" src="assets/hero-0.jpg" width="1272" height="847" alt="<?= h($copy['heroAlt']) ?>" fetchpriority="high">
+        <img class="hero-image" src="assets/hero-0.jpg" width="1272" height="847" alt="<?= h($copy['heroAlt']) ?>" fetchpriority="high">
       </section>
 
       <section class="wrap info-section when-section" id="when" aria-labelledby="when-heading">
-        <div class="section-intro">
+        <div>
           <h2 id="when-heading"><?= h($copy['whenHeading']) ?></h2>
         </div>
         <div class="when-time">
@@ -301,7 +293,7 @@ function h(string $value): string
         </div>
       </section>
 
-      <section class="wrap info-section where-section" id="where" aria-labelledby="where-heading">
+      <section class="wrap info-section" id="where" aria-labelledby="where-heading">
         <div class="where-layout">
           <div>
             <h2 id="where-heading"><?= h($copy['whereHeading']) ?></h2>
@@ -326,24 +318,24 @@ function h(string $value): string
       </section>
 
       <section class="wrap info-section what-section" id="what" aria-labelledby="what-heading">
-        <div class="section-intro">
+        <div>
           <h2 id="what-heading"><?= h($copy['whatHeading']) ?></h2>
         </div>
         <div class="repair-details">
           <div>
             <h3><?= h($copy['repairHeading']) ?></h3>
             <p><?= h($copy['repairs']) ?></p>
+            <p class="repair-note"><?= h($copy['cleaningNote']) ?></p>
           </div>
           <div class="not-repaired">
             <h3><?= h($copy['notRepairHeading']) ?></h3>
             <p><?= h($copy['notRepairs']) ?></p>
           </div>
-          <p class="repair-note"><?= h($copy['cleaningNote']) ?></p>
         </div>
       </section>
 
       <section class="wrap info-section contact-section" id="contact" aria-labelledby="contact-heading">
-        <div class="section-intro">
+        <div>
           <h2 id="contact-heading"><?= h($copy['contactHeading']) ?></h2>
         </div>
         <a class="contact-email" href="mailto:repaircafediemen@gmail.com">repaircafediemen@gmail.com</a>
@@ -387,14 +379,6 @@ function h(string $value): string
           }
         }
       });
-
-      // Add more image filenames here to randomly choose a hero on each page load.
-      const heroImages = [
-        'assets/hero-0.jpg'
-      ];
-      if (heroImages.length > 1) {
-        document.getElementById('hero-image').src = heroImages[Math.floor(Math.random() * heroImages.length)];
-      }
 
       function updateToggle() {
         const mode = document.documentElement.dataset.theme;
