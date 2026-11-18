@@ -383,7 +383,7 @@ function h(string $value): string
     <footer class="site-footer">
       <div class="wrap footer-inner">
         <nav class="footer-links" aria-label="<?= h($copy['footerNavigation']) ?>">
-          <a href="https://repaircafe.amsterdam/en/cafe/de-diem"><?= h($copy['amsterdamLink']) ?></a>
+          <a href="https://repaircafe.amsterdam/<?= h($language) ?>/cafe/de-diem"><?= h($copy['amsterdamLink']) ?></a>
           <a href="https://www.repaircafe.org/cafe/repair-cafe-diemen/"><?= h($copy['worldLink']) ?></a>
         </nav>
       </div>
